@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XII TITL — Angkatan 11 · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --cream: #fef9f0;
+    --deep: #0a0a14;
+    --glass-bg: rgba(255,255,255,0.08);
+    --glass-border: rgba(255,255,255,0.18);
+    --glass-shadow: rgba(0,0,0,0.25);
+    --accent: #6ee7f7;
+    --accent2: #a78bfa;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    color: #fff;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-trail {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: all 0.35s ease;
+  }
+
+  /* Floating particles */
+  .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7;
+    min-height: 420px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(110,231,247,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 30%, rgba(167,139,250,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(201,168,76,0.15) 0%, transparent 50%),
+      linear-gradient(135deg, #0a0a1e 0%, #0d0d2b 40%, #060614 100%);
+    animation: bgPulse 8s ease-in-out infinite;
+  }
+  @keyframes bgPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.12); }
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { transform: perspective(600px) rotateX(20deg) translateY(0); }
+    100% { transform: perspective(600px) rotateX(20deg) translateY(60px); }
+  }
+
+  /* Liquid blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: blobFloat ease-in-out infinite;
+    pointer-events: none;
+  }
+  .blob-1 { width: 350px; height: 350px; background: rgba(110,231,247,0.15); top: -80px; left: -50px; animation-duration: 12s; }
+  .blob-2 { width: 280px; height: 280px; background: rgba(167,139,250,0.18); top: 20%; right: -60px; animation-duration: 9s; animation-delay: -3s; }
+  .blob-3 { width: 200px; height: 200px; background: rgba(201,168,76,0.12); bottom: -40px; left: 40%; animation-duration: 14s; animation-delay: -6s; }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-20px) scale(1.08); }
+    66% { transform: translate(-20px,15px) scale(0.94); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    animation: heroReveal 1.2s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    backdrop-filter: blur(10px);
+    padding: 6px 18px; border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    color: var(--gold-light);
+    margin-bottom: 1.4rem;
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.2); }
+    50% { box-shadow: 0 0 20px 4px rgba(201,168,76,0.15); }
+  }
+  .badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, var(--gold-light) 40%, #fff 70%, var(--accent) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.6rem;
+    text-shadow: none;
+  }
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-stats {
+    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+  }
+  .stat-chip {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    padding: 10px 20px; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    transition: all 0.3s;
+  }
+  .stat-chip span { color: var(--gold-light); font-weight: 700; }
+  .stat-chip:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.35); font-size: 0.65rem; letter-spacing: 0.1em;
+    animation: fadeInUp 2s 1.5s both;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); animation: lineDown 1.8s ease-in-out infinite; }
+  @keyframes lineDown { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+  @keyframes fadeInUp { from{opacity:0;transform:translate(-50%,20px)} to{opacity:1;transform:translate(-50%,0)} }
+
+  /* ====== MAIN LAYOUT ====== */
+  main { position: relative; z-index: 1; }
+
+  .section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-header {
+    text-align: center; margin-bottom: 3.5rem;
+    animation: fadeSlide 0.8s ease both;
+    animation-play-state: paused;
+  }
+  .section-header.visible { animation-play-state: running; }
+  @keyframes fadeSlide { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ====== GLASS CARD ====== */
+  .glass {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .glass:hover {
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.2), inset 0 1px 0 rgba(255,255,255,0.15);
+    transform: translateY(-4px);
+  }
+
+  /* ====== STRUKTUR KELAS ====== */
+  .structure-section { padding: 5rem 2rem; }
+  .structure-inner { max-width: 900px; margin: 0 auto; }
+
+  .org-tree {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+
+  .org-node {
+    display: flex; flex-direction: column; align-items: center;
+    position: relative;
+  }
+
+  .org-card {
+    padding: 1.2rem 2.2rem;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    min-width: 200px;
+  }
+  .org-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
+  }
+  .org-card:hover { transform: scale(1.05); }
+
+  .org-wali { background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.08)); box-shadow: 0 8px 32px rgba(201,168,76,0.2); }
+  .org-ketua { background: linear-gradient(135deg, rgba(110,231,247,0.2), rgba(110,231,247,0.05)); box-shadow: 0 8px 32px rgba(110,231,247,0.15); }
+  .org-vice { background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(167,139,250,0.05)); box-shadow: 0 8px 32px rgba(167,139,250,0.15); }
+  .org-sekretaris, .org-bendahara { background: rgba(255,255,255,0.06); }
+
+  .org-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.6; margin-bottom: 4px;
+  }
+  .org-name { font-size: 1rem; font-weight: 600; }
+  .org-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    margin: 0 auto 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+  .av-gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #1a1000; }
+  .av-cyan { background: linear-gradient(135deg, #6ee7f7, #38bdf8); color: #001a20; }
+  .av-purple { background: linear-gradient(135deg, #a78bfa, #c4b5fd); color: #1a0040; }
+  .av-gray { background: rgba(255,255,255,0.12); color: #fff; }
+
+  /* Connector lines */
+  .org-connector { width: 2px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.05)); }
+  .org-h-row { display: flex; gap: 2rem; align-items: flex-start; position: relative; }
+  .org-h-row::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 200px); height: 2px;
+    background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+  }
+  .org-branch { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .org-connector-up { width: 2px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.2)); }
+
+  /* ====== PHOTO GRID — SISWA ====== */
+  .students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .student-card {
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    animation: cardReveal 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  .student-card:hover .student-photo { transform: scale(1.08); }
+  .student-card:hover .student-overlay { opacity: 1; }
+  .student-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.25); }
+
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .student-photo-wrap {
+    width: 100%; aspect-ratio: 3/4; overflow: hidden;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    position: relative;
+  }
+  .student-photo {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700;
+    color: rgba(255,255,255,0.25);
+    transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .photo-placeholder .icon { font-size: 2.8rem; margin-bottom: 0.3rem; }
+
+  .student-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end;
+    padding: 1rem;
+  }
+  .student-overlay-content { color: #fff; }
+  .student-overlay-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.15em;
+    color: var(--gold-light); text-transform: uppercase;
+  }
+
+  .student-info {
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .student-name {
+    font-size: 0.78rem; font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+  .student-no {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; color: rgba(255,255,255,0.4);
+  }
+  .student-gender {
+    position: absolute; top: 10px; right: 10px;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; backdrop-filter: blur(10px);
+  }
+  .gender-m { background: rgba(110,231,247,0.2); border: 1px solid rgba(110,231,247,0.4); }
+  .gender-f { background: rgba(255,182,193,0.2); border: 1px solid rgba(255,182,193,0.4); }
+
+  /* Filter tabs */
+  .filter-tabs { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .filter-btn {
+    padding: 7px 18px; border-radius: 100px; border: none;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.25s;
+    backdrop-filter: blur(10px);
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--gold);
+    color: #1a1000; font-weight: 600;
+    border-color: var(--gold);
+  }
+
+  /* ====== GALERI / MEMORIES ====== */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+    gap: 1rem;
+  }
+  .gallery-item {
+    border-radius: 16px; overflow: hidden;
+    position: relative; cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-row: span 2; }
+  .gallery-item:hover { transform: scale(1.02); z-index: 2; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+
+  .gallery-ph {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.2);
+    font-size: 2rem;
+    transition: all 0.4s;
+  }
+  .gallery-item:hover .gallery-ph { color: rgba(255,255,255,0.5); }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1rem 1.2rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    font-size: 0.78rem; font-weight: 500;
+    opacity: 0; transition: opacity 0.3s;
+    transform: translateY(5px); transition: all 0.3s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+  .gallery-caption-sub { font-size: 0.62rem; color: rgba(255,255,255,0.5); font-family: 'Space Mono', monospace; }
+
+  /* Gallery colors */
+  .gc-1 { background: linear-gradient(135deg, #1a1a3e, #0d1a2e); }
+  .gc-2 { background: linear-gradient(135deg, #1a2e1a, #0d2e1a); }
+  .gc-3 { background: linear-gradient(135deg, #2e1a1a, #2e0d1a); }
+  .gc-4 { background: linear-gradient(135deg, #1a1a3e, #2e1a2e); }
+  .gc-5 { background: linear-gradient(135deg, #2e2a0d, #1a200d); }
+  .gc-6 { background: linear-gradient(135deg, #0d2e2e, #0d1a2e); }
+  .gc-7 { background: linear-gradient(135deg, #2e1a0d, #1a0d2e); }
+
+  /* ====== COUNTDOWN ====== */
+  .countdown-section { padding: 4rem 2rem; }
+  .countdown-inner {
+    max-width: 700px; margin: 0 auto;
+    padding: 3rem; border-radius: 28px; text-align: center;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(110,231,247,0.05));
+    border: 1px solid rgba(201,168,76,0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 80px rgba(201,168,76,0.08);
+    position: relative; overflow: hidden;
+  }
+  .countdown-inner::before {
+    content: '';
+    position: absolute; inset: -50%;
+    background: conic-gradient(from 0deg, transparent 0%, rgba(201,168,76,0.05) 15%, transparent 30%);
+    animation: rotateGlow 12s linear infinite;
+  }
+  @keyframes rotateGlow { to { transform: rotate(360deg); } }
+
+  .countdown-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-style: italic;
+    color: rgba(255,255,255,0.6); margin-bottom: 0.5rem;
+    position: relative; z-index: 1;
+  }
+  .countdown-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700; color: var(--gold-light);
+    margin-bottom: 2rem; position: relative; z-index: 1;
+  }
+
+  .countdown-digits {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .cd-unit { text-align: center; }
+  .cd-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff, var(--gold-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block; min-width: 80px;
+    padding: 0.5rem; border-radius: 12px;
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 6px;
+    animation: numPop 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  @keyframes numPop { from{transform:scale(1.15)} to{transform:scale(1)} }
+  .cd-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .cd-sep {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; color: rgba(255,255,255,0.2);
+    align-self: center; margin-top: -20px;
+    animation: sepBlink 1s ease-in-out infinite;
+  }
+  @keyframes sepBlink { 0%,100%{opacity:0.2} 50%{opacity:0.6} }
+
+  /* ====== PESAN & QUOTES ====== */
+  .quotes-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+  .quote-card {
+    padding: 2rem; border-radius: 20px; position: relative; overflow: hidden;
+    transition: all 0.4s;
+  }
+  .quote-card::after {
+    content: '"';
+    position: absolute; top: -10px; left: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem; color: rgba(255,255,255,0.04);
+    line-height: 1; pointer-events: none;
+  }
+  .quote-text {
+    font-style: italic; font-size: 0.9rem;
+    line-height: 1.7; color: rgba(255,255,255,0.8);
+    margin-bottom: 1rem; position: relative; z-index: 1;
+  }
+  .quote-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    color: var(--gold-light);
+  }
+
+  /* ====== FOOTER ====== */
+  footer {
+    padding: 3rem 2rem; text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+  footer::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  .footer-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .footer-hearts { color: rgba(201,168,76,0.5); margin-top: 1.5rem; font-size: 0.75rem; }
+
+  /* ====== MODAL ====== */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    padding: 2rem;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box {
+    max-width: 420px; width: 100%;
+    background: rgba(15,15,30,0.95);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px; padding: 2.5rem;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+  .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+  .modal-close {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); border: none; color: #fff;
+    cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.18); }
+  .modal-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+  }
+  .modal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; text-align: center; margin-bottom: 0.3rem;
+  }
+  .modal-detail { font-size: 0.78rem; color: rgba(255,255,255,0.45); text-align: center; font-family: 'Space Mono', monospace; letter-spacing: 0.08em; }
+  .modal-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 1.2rem; }
+  .modal-tag {
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 0.65rem; font-family: 'Space Mono', monospace;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold-light);
+  }
+  .modal-quote {
+    margin-top: 1.5rem; padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border-left: 2px solid rgba(201,168,76,0.3);
+    font-style: italic; font-size: 0.82rem;
+    color: rgba(255,255,255,0.6); line-height: 1.6;
+  }
+
+  /* ====== SCROLL ANIMATIONS ====== */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ====== NAV ====== */
+  nav {
+    position: fixed; top: 1.2rem; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(10,10,20,0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 0.6rem 1.5rem;
+    display: flex; align-items: center; gap: 1.5rem;
+    transition: all 0.3s;
+  }
+  nav.scrolled { background: rgba(5,5,15,0.85); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--gold-light);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 1.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.75rem; color: rgba(255,255,255,0.55);
+    text-decoration: none; letter-spacing: 0.05em;
+    transition: color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-links a:hover { color: #fff; }
+
+  /* ====== BG SHAPES ====== */
+  .bg-shape {
+    position: fixed; pointer-events: none; z-index: 0;
+    border-radius: 50%; filter: blur(80px);
+    animation: shapeFloat ease-in-out infinite;
+  }
+  .shape-1 { width: 500px; height: 500px; background: rgba(110,231,247,0.04); top: 10%; left: -150px; animation-duration: 20s; }
+  .shape-2 { width: 400px; height: 400px; background: rgba(167,139,250,0.04); bottom: 20%; right: -100px; animation-duration: 25s; animation-delay: -10s; }
+  @keyframes shapeFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-40px)} }
+
+  /* ====== TIMELINE ====== */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -2.3rem; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px rgba(201,168,76,0.5);
+  }
+  .timeline-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; color: var(--gold-light);
+    letter-spacing: 0.12em; margin-bottom: 0.4rem;
+  }
+  .timeline-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .timeline-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    nav .nav-links { display: none; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .gallery-item:nth-child(4) { grid-row: span 1; }
+    .students-grid { grid-template-columns: repeat(3, 1fr); }
+    .org-h-row { flex-wrap: wrap; justify-content: center; }
+  }
+    /* Tambahan untuk gambar */
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 0; transition: transform 0.5s; }
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-ph { position: relative; z-index: 1; background: rgba(0,0,0,0.3); }
+  .gallery-item:hover .gallery-ph { background: rgba(0,0,0,0.1); }
+  .org-avatar img, .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .org-avatar, .modal-avatar { overflow: hidden; }
+  .student-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Background Shapes -->
+<div class="bg-shape shape-1"></div>
+<div class="bg-shape shape-2"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-brand">XII TITL · XI</a>
+  <ul class="nav-links">
+    <li><a href="#siswa">Siswa</a></li>
+    <li><a href="#struktur">Struktur</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#kenangan">Kenangan</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Angkatan ke-11 · 2026
+    </div>
+    <h1>XII TITL<br>2023 – 2026</h1>
+    <p class="hero-sub">Teknik Instalasi Tenaga Listrik · SMK</p>
+    <div class="hero-stats">
+      <div class="stat-chip">Siswa: <span>22</span></div>
+      <div class="stat-chip">Laki-laki: <span>17</span></div>
+      <div class="stat-chip">Perempuan: <span>5</span></div>
+      <div class="stat-chip">Wali Kelas: <span>1</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<main>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-section">
+    <div class="countdown-inner">
+      <p class="countdown-title">Menghitung hari menuju</p>
+      <h2 class="countdown-main-title">Kelulusan & Perpisahan</h2>
+      <div class="countdown-digits" id="countdown">
+        <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><div class="cd-label">Hari</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><div class="cd-label">Jam</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><div class="cd-label">Menit</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><div class="cd-label">Detik</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SISWA -->
+  <section class="section" id="siswa">
+    <div class="section-header reveal">
+      <span class="section-label">Keluarga Besar</span>
+      <h2 class="section-title">Para Siswa</h2>
+    </div>
+    <div class="filter-tabs reveal reveal-delay-1">
+      <button class="filter-btn active" onclick="filterStudents('all', this)">Semua (22)</button>
+      <button class="filter-btn" onclick="filterStudents('L', this)">Laki-laki (17)</button>
+      <button class="filter-btn" onclick="filterStudents('P', this)">Perempuan (5)</button>
+    </div>
+    <div class="students-grid" id="studentsGrid"></div>
+  </section>
+
+  <!-- STRUKTUR KELAS -->
+  <section class="structure-section" id="struktur">
+    <div class="section-header reveal">
+      <span class="section-label">Organisasi</span>
+      <h2 class="section-title">Struktur Kelas</h2>
+    </div>
+    <div class="structure-inner">
+      <div class="org-tree">
+        <!-- Wali Kelas -->
+        <div class="org-node">
+          <div class="org-card org-wali glass" onclick="openOrgModal('wali')">
+            <div class="org-avatar av-gold">WK</div>
+            <div class="org-role">Wali Kelas</div>
+            <div class="org-name">Bpk. / Ibu Guru</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+
+        <!-- Ketua -->
+        <div class="org-node">
+          <div class="org-card org-ketua glass" onclick="openOrgModal('ketua')">
+            <div class="org-avatar av-cyan">K</div>
+            <div class="org-role">Ketua Kelas</div>
+            <div class="org-name">Siswa No. 08</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+
+        <!-- Wakil Ketua -->
+        <div class="org-node">
+          <div class="org-card org-vice glass" onclick="openOrgModal('wakil')">
+            <div class="org-avatar av-purple">W</div>
+            <div class="org-role">Wakil Ketua</div>
+            <div class="org-name">Siswa No. 15</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+
+        <!-- Sekretaris & Bendahara -->
+        <div class="org-h-row">
+          <div class="org-branch">
+            <div class="org-connector-up"></div>
+            <div class="org-card org-sekretaris glass" onclick="openOrgModal('sekretaris')">
+              <div class="org-avatar av-gray">S</div>
+              <div class="org-role">Sekretaris</div>
+              <div class="org-name">Siswi No. 03</div>
+            </div>
+          </div>
+          <div class="org-branch">
+            <div class="org-connector-up"></div>
+            <div class="org-card org-bendahara glass" onclick="openOrgModal('bendahara')">
+              <div class="org-avatar av-gray">B</div>
+              <div class="org-role">Bendahara</div>
+              <div class="org-name">Siswi No. 19</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Anggota info -->
+      <div class="glass reveal" style="margin-top:2.5rem; padding:1.5rem 2rem; display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; border-radius:16px;">
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--accent)">17</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);font-family:'Space Mono',monospace;letter-spacing:0.1em">ANGGOTA PUTRA</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.08);align-self:stretch"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#ffb6c1">5</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);font-family:'Space Mono',monospace;letter-spacing:0.1em">ANGGOTA PUTRI</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.08);align-self:stretch"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--gold-light)">22</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);font-family:'Space Mono',monospace;letter-spacing:0.1em">TOTAL SISWA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="section" id="galeri">
+    <div class="section-header reveal">
+      <span class="section-label">Momen Berharga</span>
+      <h2 class="section-title">Galeri Kenangan</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item gc-1 glass">
+        <div class="gallery-ph">📸</div>
+        <div class="gallery-caption">
+          Foto Kelas Bersama
+          <div class="gallery-caption-sub">Tahun Ajaran 2025/2026</div>
+        </div>
+      </div>
+      <div class="gallery-item gc-2 glass">
+        <div class="gallery-ph">🎓</div>
+        <div class="gallery-caption">Upacara & Wisuda<div class="gallery-caption-sub">Momen Kelulusan</div></div>
+      </div>
+      <div class="gallery-item gc-3 glass">
+        <div class="gallery-ph">⚡</div>
+        <div class="gallery-caption">Praktik TITL<div class="gallery-caption-sub">Lab Instalasi</div></div>
+      </div>
+      <div class="gallery-item gc-4 glass">
+        <div class="gallery-ph">🏕️</div>
+        <div class="gallery-caption">Outing Class<div class="gallery-caption-sub">Perjalanan Bersama</div></div>
+      </div>
+      <div class="gallery-item gc-5 glass">
+        <div class="gallery-ph">🏆</div>
+        <div class="gallery-caption">Prestasi & Lomba<div class="gallery-caption-sub">Kebanggaan Kelas</div></div>
+      </div>
+      <div class="gallery-item gc-6 glass">
+        <div class="gallery-ph">🎉</div>
+        <div class="gallery-caption">Perayaan Ulang Tahun<div class="gallery-caption-sub">Kebersamaan</div></div>
+      </div>
+      <div class="gallery-item gc-7 glass">
+        <div class="gallery-ph">🌙</div>
+        <div class="gallery-caption">Malam Perpisahan<div class="gallery-caption-sub">Kenangan Terindah</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE KENANGAN -->
+  <section class="section" id="kenangan">
+    <div class="section-header reveal">
+      <span class="section-label">Perjalanan Kita</span>
+      <h2 class="section-title">Timeline Kenangan</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;" class="reveal">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2023</div>
+          <div class="timeline-title">Awal Pertemuan ✨</div>
+          <div class="timeline-desc">Hari pertama kelas XII TITL angkatan 11. Perkenalan, senyum canggung, dan awal dari cerita yang indah.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2023</div>
+          <div class="timeline-title">Masa Orientasi 🎒</div>
+          <div class="timeline-desc">MOS dan kegiatan orientasi sekolah. Mulai mengenal satu sama lain lebih dalam.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2025</div>
+          <div class="timeline-title">Ujian Akhir Semester 📚</div>
+          <div class="timeline-desc">Berjuang bersama menghadapi UAS. Belajar bareng, saling mendukung.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2025</div>
+          <div class="timeline-title">Praktik Lapangan ⚡</div>
+          <div class="timeline-desc">PKL dan praktik instalasi listrik. Pengalaman nyata di dunia industri.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date"> 2024</div>
+          <div class="timeline-title">Kelas XI Dimulai 📖</div>
+          <div class="timeline-desc">Naik kelas! Semangat baru, tantangan baru, kenangan baru pun terukir.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2025</div>
+          <div class="timeline-title">Outing Class 🏕️</div>
+          <div class="timeline-desc">Perjalanan wisata bersama. Tertawa lepas, foto-foto, momen tak terlupakan.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026</div>
+          <div class="timeline-title">Kelas XII — Final Year 🎓</div>
+          <div class="timeline-desc">Tahun terakhir di sekolah. Fokus ujian, projek akhir, dan kenangan terbaik.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">May 2026</div>
+          <div class="timeline-title">Kelulusan & Perpisahan 🌟</div>
+          <div class="timeline-desc">Akhir yang sebenarnya adalah awal baru. Terima kasih atas semua kenangan indah ini.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTES -->
+  <section class="section">
+    <div class="section-header reveal">
+      <span class="section-label">Pesan & Harapan</span>
+      <h2 class="section-title">Kata-Kata Terindah</h2>
+    </div>
+    <div class="quotes-grid">
+      <div class="quote-card glass reveal reveal-delay-1">
+        <div class="quote-text">"Tiga tahun bersama, ribuan kenangan tercipta. Perpisahan bukanlah akhir, melainkan babak baru yang menanti."</div>
+        <div class="quote-author">— Kelas XII TITL Angkatan 11</div>
+      </div>
+      <div class="quote-card glass reveal reveal-delay-2">
+        <div class="quote-text">"Ilmu yang kita dapat hari ini adalah cahaya yang menerangi masa depan. Bangga menjadi bagian dari angkatan yang luar biasa ini."</div>
+        <div class="quote-author">— Wali Kelas</div>
+      </div>
+      <div class="quote-card glass reveal reveal-delay-3">
+        <div class="quote-text">"Listrik mengalir, persahabatan mengalir lebih deras. Terima kasih telah menjadi keluarga selama tiga tahun ini."</div>
+        <div class="quote-author">— Siswa TITL 2026</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">XII TITL · Angkatan 11</div>
+  <div class="footer-sub">Teknik Instalasi Tenaga Listrik · 2023 – 2026</div>
+  <div class="footer-hearts">✦ Kenangan ini akan selalu ada di hati ✦</div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" style="position:relative;" id="modalBox">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-avatar" id="modalAvatar">?</div>
+    <div class="modal-name" id="modalName">-</div>
+    <div class="modal-detail" id="modalDetail">-</div>
+    <div class="modal-tags" id="modalTags"></div>
+    <div class="modal-quote" id="modalQuote"></div>
+  </div>
+</div>
+
+<script>
+// ====== DATA ======
+// TAMBAHKAN LINK GAMBAR DI PROPERTY 'image'
+const students = [
+  { no: '01', name: 'Andre Eka Saputra', gender: 'L', hobby: 'Olahraga', quote: 'Kerja keras tidak pernah mengkhianati hasil.', image: 'https://drive.google.com/file/d/1gMJhdhmPC8yXZ_u-3nvE7QDYntfvM5Ms/view?usp=drivesdk' },
+  { no: '02', name: 'Angga Danuarta', gender: 'L', hobby: 'Futsal', quote: 'Di lapangan kita lawan, di luar kita kawan.', image: 'https://drive.google.com/file/d/1fN-01lS-QBxYZz1-_RTVyO2or9nD-mN-/view?usp=drivesdk' },
+  { no: '03', name: 'Azka Bari', gender: 'L', hobby: 'Drag', quote: 'Terus berjuang, jangan menyerah!', image: 'https://drive.google.com/file/d/1qsYPz6xXt8RX6-5BQSMesHXWoEm7cjjh/view?usp=drivesdk' },
+  { no: '04', name: 'Dany Syam Pratama', gender: 'L', hobby: 'Musik', quote: 'Hidup tanpa musik seperti malam tanpa bintang.', image: 'https://drive.google.com/file/d/1kg4VDxIGL-za5EG36yw_uKIHW7R0jTgA/view?usp=drivesdk' },
+  { no: '05', name: 'Deni Muhammad Ali', gender: 'L', hobby: 'Otomotif', quote: 'Jalanan adalah guru terbaik.', image: 'https://drive.google.com/file/d/1f8ZiU-BckpfQnV0EovmrBDXaoR9Lp0RW/view?usp=drivesdk' },
+  { no: '06', name: 'Desi Wulandari', gender: 'P', hobby: 'Membaca', quote: 'Buku adalah jendela dunia.', image: 'https://drive.google.com/file/d/1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_/view?usp=drivesdk' },
+  { no: '07', name: 'Diky Saputra', gender: 'L', hobby: 'Elektronika', quote: 'Setiap rangkaian punya ceritanya sendiri.', image: 'https://drive.google.com/file/d/1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF/view?usp=drivesdk' },
+  { no: '08', name: 'Dito Irwansyah', gender: 'L', hobby: 'Basket', quote: 'Lompat lebih tinggi, raih mimpimu.', image: 'https://drive.google.com/file/d/1hEiKB35bi-6n9DJbxWoSLu2oq8j6seGF/view?usp=drivesdk' },
+  { no: '09', name: 'Dzaky Thufail Ramadhan', gender: 'L', hobby: 'Fotografi', quote: 'Mengabadikan momen yang tak bisa diulang.', image: 'https://drive.google.com/file/d/1zVumOZ_w1rc3f3De9GrOvoWHxOGtcSAM/view?usp=drivesdk' },
+  { no: '10', name: 'Egi Nurdiansyah', gender: 'L', hobby: 'Desain Grafis', quote: 'Kreativitas tanpa batas.', image: 'https://drive.google.com/file/d/1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA/view?usp=drivesdk' },
+  { no: '11', name: 'Fajri Pratama', gender: 'L', hobby: 'Berenang', quote: 'Teruslah mengalir seperti air.', image: 'https://drive.google.com/file/d/1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR/view?usp=drivesdk' },
+  { no: '12', name: 'Intan Permatasari', gender: 'P', hobby: 'Menulis', quote: 'Kata-kata adalah kekuatan jiwa.', image: 'https://drive.google.com/file/d/1pqClfhnr8jm0VuHKnxk8n5pbR43JaHEI/view?usp=drivesdk' },
+  { no: '13', name: 'Karina', gender: 'P', hobby: 'Menyanyi', quote: 'Biar lagu yang berbicara.', image: 'https://drive.google.com/file/d/1jLDWBOh2_cJeFG-DozHQk5enqXu-vQa-/view?usp=drivesdk' },
+  { no: '14', name: 'Muhammad Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/file/d/1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN/view?usp=drivesdk' },
+  { no: '15', name: 'Rendi Syaputra', gender: 'L', hobby: 'Bulu Tangkis', quote: 'Fokus pada tujuan, nikmati prosesnya.', image: 'https://drive.google.com/file/d/1u2Eed8MnIYyp4BQo1anLl4sOrzlcDPi4/view?usp=drivesdk' },
+  { no: '16', name: 'Resti Puji Rahayu', gender: 'P', hobby: 'Memasak', quote: 'Cinta tulus diracik dengan ikhlas.', image: 'https://drive.google.com/file/d/1nytpun8y6NVYPGEzrrveQh8mSZe7ggVA/view?usp=drivesdk' },
+  { no: '17', name: 'Ria Awaliyah', gender: 'P', hobby: 'Melukis', quote: 'Beri warna pada kanvas kehidupanmu.', image: 'https://drive.google.com/file/d/1FJ6y1x2LFvSxNWVxKtjG9HyTh0faFr1b/view?usp=drivesdk' },
+  { no: '18', name: 'Ridho Syaputra', gender: 'L', hobby: 'Voli', quote: 'Satu tim, satu tujuan.', image: 'https://drive.google.com/file/d/13lDkLc0eV7u5jGNKkR8riCFtIkyz2A2D/view?usp=drivesdk' },
+  { no: '19', name: 'Riski Apriansyah', gender: 'L', hobby: 'Sepeda', quote: 'Perjalanan jauh dimulai dari kayuhan pertama.', image: 'LINK_DRIVE_SISWA_19' },
+  { no: '20', name: 'Rizky Kurniawan', gender: 'L', hobby: 'Web Dev & Gaming', quote: 'Membangun masa depan satu baris kode demi satu baris.', image: 'LINK_DRIVE_SISWA_20' },
+  { no: '21', name: 'Sapta Juni Aditya', gender: 'L', hobby: 'Hiking', quote: 'Puncak terbaik masih menunggumu.', image: 'https://drive.google.com/file/d/11BU5eqYOgFYJZ_ee1LfwSwnoWHKeLNCq/view?usp=drivesdk' },
+  { no: '22', name: 'Wafiq Hendi Pratama', gender: 'L', hobby: 'Gaming', quote: 'Main santai, raih kemenangan.', image: 'https://drive.google.com/file/d/1btshwcOYodvWrX-hznCsQ7D_TFl-Yfq3/view?usp=drivesdk' },
+];
+
+const orgData = {
+  wali: { name: 'Rina Puji Rahayu', detail: 'Wali Kelas XII TITL · 2023–2026', image: 'LINK_DRIVE_FOTO_WALI_KELAS', tags: ['Pembimbing', 'Inspirasi', 'Pelindung'], quote: 'Menjadi wali kelas kalian adalah kehormatan terbesar. Teruslah bersinar, anak-anakku.' },
+  ketua: { name: 'Fajri Pratama', detail: 'Ketua Kelas · No. 08', image: 'LINK_DRIVE_FOTO_KETUA', tags: ['Pemimpin', 'Basket', 'Tanggung Jawab'], quote: 'Pemimpin sejati melayani, bukan dilayani. Bangga bisa memimpin keluarga TITL 11.' },
+  wakil: { name: 'Egi Nurdianyah', detail: 'Wakil Ketua · No. 15', image: 'LINK_DRIVE_FOTO_WAKIL', tags: ['Disiplin', 'Berenang', 'Koordinator'], quote: 'Terus bergerak maju, jangan pernah diam. Bersama kita bisa!' },
+  sekretaris: { name: '?', detail: 'Sekretaris · No. 03', image: 'LINK_DRIVE_FOTO_SEKRETARIS', tags: ['Rapi', 'Teliti', 'Membaca'], quote: 'Setiap catatan adalah kenangan yang tersimpan rapi di hati.' },
+  bendahara: { name: '?', detail: 'Bendahara · No. 19', image: 'LINK_DRIVE_FOTO_BENDAHARA', tags: ['Amanah', 'Memasak', 'Kepercayaan'], quote: 'Kepercayaan adalah amanah yang dijaga dengan sepenuh hati.' },
+};
+
+// ====== RENDER STUDENTS ======
+function renderStudents(filter = 'all') {
+  const grid = document.getElementById('studentsGrid');
+  grid.innerHTML = '';
+  const filtered = filter === 'all' ? students : students.filter(s => s.gender === filter);
+  filtered.forEach((s, i) => {
+    const initials = s.name.split(' ').map(w => w[0]).join('').slice(0,2);
+    const colors = ['linear-gradient(135deg,#1a1a3e,#0d1a2e)', 'linear-gradient(135deg,#1a2e1a,#0d2e0d)', 'linear-gradient(135deg,#2e1a1a,#2e0d0d)', 'linear-gradient(135deg,#2e2e0d,#1a1a00)', 'linear-gradient(135deg,#1a0d2e,#2e0d2e)'];
+    const bg = colors[i % colors.length];
+    const card = document.createElement('div');
+    card.className = 'student-card glass';
+    card.style.animationDelay = `${i * 0.05}s`;
+    card.dataset.gender = s.gender;
+    card.innerHTML = `
+      <div class="student-photo-wrap">
+        <div class="student-photo">
+          <div class="photo-placeholder" style="background:${bg}">
+            <div class="icon">${s.gender === 'P' ? '👩‍🎓' : '👨‍🎓'}</div>
+            ${initials}
+          </div>
+        </div>
+        <div class="student-gender ${s.gender === 'L' ? 'gender-m' : 'gender-f'}">${s.gender === 'L' ? '♂' : '♀'}</div>
+        <div class="student-overlay">
+          <div class="student-overlay-content">
+            <div class="student-overlay-role">${s.hobby}</div>
+          </div>
+        </div>
+      </div>
+      <div class="student-info">
+        <div class="student-name">${s.name}</div>
+        <div class="student-no">NO. ABSEN ${s.no}</div>
+      </div>`;
+    card.onclick = () => openStudentModal(s);
+    grid.appendChild(card);
+  });
+}
+renderStudents();
+
+function filterStudents(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderStudents(type);
+}
+
+// ====== MODAL ======
+function openStudentModal(s) {
+  const initials = s.name.split(' ').map(w => w[0]).join('').slice(0,2);
+  document.getElementById('modalAvatar').textContent = initials;
+  document.getElementById('modalName').textContent = s.name;
+  document.getElementById('modalDetail').textContent = `No. Absen ${s.no} · ${s.gender === 'L' ? 'Putra' : 'Putri'} · XII TITL 2026`;
+  document.getElementById('modalTags').innerHTML = `<span class="modal-tag">${s.hobby}</span><span class="modal-tag">TITL</span><span class="modal-tag">Angkatan 11</span>`;
+  document.getElementById('modalQuote').textContent = `"${s.quote}"`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function openOrgModal(key) {
+  const d = orgData[key];
+  document.getElementById('modalAvatar').textContent = d.avatar;
+  document.getElementById('modalName').textContent = d.name;
+  document.getElementById('modalDetail').textContent = d.detail;
+  document.getElementById('modalTags').innerHTML = d.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+  document.getElementById('modalQuote').textContent = `"${d.quote}"`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// ====== COUNTDOWN ======
+function updateCountdown() {
+  // Target hari Rabu, 6 Mei 2026 jam 08:00
+  const target = new Date('2026-05-06T08:00:00').getTime();
+  const now = new Date().getTime();
+  const diff = target - now;
+  
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '🎓';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    return;
+  }
+  
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ====== CUSTOM CURSOR ======
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 6 + 'px';
+  cursor.style.top = my - 6 + 'px';
+});
+function animTrail() {
+  tx += (mx - tx) * 0.12;
+  ty += (my - ty) * 0.12;
+  trail.style.left = tx - 18 + 'px';
+  trail.style.top = ty - 18 + 'px';
+  requestAnimationFrame(animTrail);
+}
+animTrail();
+
+document.querySelectorAll('button, a, .student-card, .org-card, .gallery-item').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
+  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+});
+
+// ====== PARTICLES ======
+const particleContainer = document.getElementById('particles');
+for (let i = 0; i < 25; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 4 + 1;
+  const hue = Math.random() > 0.5 ? 'rgba(201,168,76,0.6)' : Math.random() > 0.5 ? 'rgba(110,231,247,0.4)' : 'rgba(167,139,250,0.4)';
+  p.style.cssText = `width:${size}px;height:${size}px;background:${hue};left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*15}s;`;
+  particleContainer.appendChild(p);
+}
+
+// ====== NAV SCROLL ======
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+});
+
+// ====== REVEAL ON SCROLL ======
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .section-header').forEach(el => {
+  observer.observe(el);
+});
+// ====== FITUR KEAMANAN ======
+// Mencegah klik kanan (Context Menu)
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
+// Mencegah shortcut keyboard untuk Inspect Element & View Source
+document.addEventListener('keydown', function(e) {
+  // Mencegah F12
+  if (e.key === 'F12') {
+    e.preventDefault();
+  }
+  // Mencegah Ctrl+Shift+I (Inspect)
+  if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+    e.preventDefault();
+  }
+  // Mencegah Ctrl+Shift+C (Inspect Element)
+  if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+    e.preventDefault();
+  }
+  // Mencegah Ctrl+Shift+J (Console)
+  if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+    e.preventDefault();
+  }
+  // Mencegah Ctrl+U (View Source)
+  if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+    e.preventDefault();
+  }
+});
+
+</script>
+<footer>
+      <h6
+        <p>&copy; 2026 Riski Kurniawan. All Rights Reserved.</p>
+        </h6>
+    </footer>
+</body>
+</html>
