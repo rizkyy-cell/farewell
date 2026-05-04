@@ -30,15 +30,17 @@
     cursor: none;
   }
 
-  /* Custom cursor */
+  /* Custom cursor - Optimized for GPU */
   .cursor {
     width: 12px; height: 12px;
     background: var(--gold);
     border-radius: 50%;
     position: fixed; top: 0; left: 0;
     pointer-events: none; z-index: 9999;
-    transition: transform 0.15s ease;
     mix-blend-mode: difference;
+    transform: translate3d(-100px, -100px, 0);
+    transition: width 0.2s, height 0.2s;
+    will-change: transform;
   }
   .cursor-trail {
     width: 36px; height: 36px;
@@ -46,7 +48,8 @@
     border-radius: 50%;
     position: fixed; top: 0; left: 0;
     pointer-events: none; z-index: 9998;
-    transition: all 0.35s ease;
+    transform: translate3d(-100px, -100px, 0);
+    will-change: transform;
   }
 
   /* Floating particles */
@@ -56,12 +59,13 @@
     border-radius: 50%;
     opacity: 0;
     animation: floatUp linear infinite;
+    will-change: transform, opacity;
   }
   @keyframes floatUp {
-    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    0% { transform: translate3d(0, 100vh, 0) scale(0); opacity: 0; }
     10% { opacity: 1; }
     90% { opacity: 0.4; }
-    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    100% { transform: translate3d(0, -10vh, 0) scale(1.2); opacity: 0; }
   }
 
   /* ====== HERO ====== */
@@ -95,27 +99,29 @@
       linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
     background-size: 60px 60px;
     animation: gridMove 20s linear infinite;
+    will-change: transform;
   }
   @keyframes gridMove {
     0% { transform: perspective(600px) rotateX(20deg) translateY(0); }
     100% { transform: perspective(600px) rotateX(20deg) translateY(60px); }
   }
 
-  /* Liquid blobs */
+  /* Liquid blobs - Reduced blur for performance */
   .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(40px);
     animation: blobFloat ease-in-out infinite;
     pointer-events: none;
+    will-change: transform;
   }
   .blob-1 { width: 350px; height: 350px; background: rgba(110,231,247,0.15); top: -80px; left: -50px; animation-duration: 12s; }
   .blob-2 { width: 280px; height: 280px; background: rgba(167,139,250,0.18); top: 20%; right: -60px; animation-duration: 9s; animation-delay: -3s; }
   .blob-3 { width: 200px; height: 200px; background: rgba(201,168,76,0.12); bottom: -40px; left: 40%; animation-duration: 14s; animation-delay: -6s; }
   @keyframes blobFloat {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    33% { transform: translate(30px,-20px) scale(1.08); }
-    66% { transform: translate(-20px,15px) scale(0.94); }
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    33% { transform: translate3d(30px,-20px,0) scale(1.08); }
+    66% { transform: translate3d(-20px,15px,0) scale(0.94); }
   }
 
   .hero-content {
@@ -175,7 +181,7 @@
   .stat-chip {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(8px);
     padding: 10px 20px; border-radius: 100px;
     font-size: 0.78rem; font-weight: 500;
     color: rgba(255,255,255,0.85);
@@ -227,8 +233,8 @@
   .glass {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
     transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
@@ -611,6 +617,7 @@
     background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
     border: 1px solid rgba(255,255,255,0.15);
     color: rgba(255,255,255,0.6);
+    overflow: hidden;
   }
   .modal-name {
     font-family: 'Playfair Display', serif;
@@ -668,15 +675,16 @@
   }
   .nav-links a:hover { color: #fff; }
 
-  /* ====== BG SHAPES ====== */
+  /* ====== BG SHAPES - Reduced blur for performance ====== */
   .bg-shape {
     position: fixed; pointer-events: none; z-index: 0;
-    border-radius: 50%; filter: blur(80px);
+    border-radius: 50%; filter: blur(40px);
     animation: shapeFloat ease-in-out infinite;
+    will-change: transform;
   }
   .shape-1 { width: 500px; height: 500px; background: rgba(110,231,247,0.04); top: 10%; left: -150px; animation-duration: 20s; }
   .shape-2 { width: 400px; height: 400px; background: rgba(167,139,250,0.04); bottom: 20%; right: -100px; animation-duration: 25s; animation-delay: -10s; }
-  @keyframes shapeFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-40px)} }
+  @keyframes shapeFloat { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(0,-40px,0)} }
 
   /* ====== TIMELINE ====== */
   .timeline { position: relative; padding-left: 2rem; }
@@ -701,7 +709,6 @@
   }
   .timeline-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
   .timeline-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
-
   @media (max-width: 640px) {
     nav .nav-links { display: none; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -723,18 +730,14 @@
 </head>
 <body>
 
-<!-- Custom Cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-trail" id="cursorTrail"></div>
 
-<!-- Floating Particles -->
 <div class="particles" id="particles"></div>
 
-<!-- Background Shapes -->
 <div class="bg-shape shape-1"></div>
 <div class="bg-shape shape-2"></div>
 
-<!-- Navigation -->
 <nav id="navbar">
   <a href="#" class="nav-brand">XII TITL · XI</a>
   <ul class="nav-links">
@@ -745,7 +748,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -776,7 +778,6 @@
 
 <main>
 
-  <!-- COUNTDOWN -->
   <div class="countdown-section">
     <div class="countdown-inner">
       <p class="countdown-title">Menghitung hari menuju</p>
@@ -793,7 +794,6 @@
     </div>
   </div>
 
-  <!-- SISWA -->
   <section class="section" id="siswa">
     <div class="section-header reveal">
       <span class="section-label">Keluarga Besar</span>
@@ -807,7 +807,6 @@
     <div class="students-grid" id="studentsGrid"></div>
   </section>
 
-  <!-- STRUKTUR KELAS -->
   <section class="structure-section" id="struktur">
     <div class="section-header reveal">
       <span class="section-label">Organisasi</span>
@@ -815,42 +814,38 @@
     </div>
     <div class="structure-inner">
       <div class="org-tree">
-        <!-- Wali Kelas -->
         <div class="org-node">
           <div class="org-card org-wali glass" onclick="openOrgModal('wali')">
-            <div class="org-avatar av-gold">WK</div>
+            <div class="org-avatar av-gold" id="orgAvatar-wali">WK</div>
             <div class="org-role">Wali Kelas</div>
             <div class="org-name">Bpk. / Ibu Guru</div>
           </div>
         </div>
         <div class="org-connector"></div>
 
-        <!-- Ketua -->
         <div class="org-node">
           <div class="org-card org-ketua glass" onclick="openOrgModal('ketua')">
-            <div class="org-avatar av-cyan">K</div>
+            <div class="org-avatar av-cyan" id="orgAvatar-ketua">K</div>
             <div class="org-role">Ketua Kelas</div>
             <div class="org-name">Siswa No. 08</div>
           </div>
         </div>
         <div class="org-connector"></div>
 
-        <!-- Wakil Ketua -->
         <div class="org-node">
           <div class="org-card org-vice glass" onclick="openOrgModal('wakil')">
-            <div class="org-avatar av-purple">W</div>
+            <div class="org-avatar av-purple" id="orgAvatar-wakil">W</div>
             <div class="org-role">Wakil Ketua</div>
             <div class="org-name">Siswa No. 15</div>
           </div>
         </div>
         <div class="org-connector"></div>
 
-        <!-- Sekretaris & Bendahara -->
         <div class="org-h-row">
           <div class="org-branch">
             <div class="org-connector-up"></div>
             <div class="org-card org-sekretaris glass" onclick="openOrgModal('sekretaris')">
-              <div class="org-avatar av-gray">S</div>
+              <div class="org-avatar av-gray" id="orgAvatar-sekretaris">S</div>
               <div class="org-role">Sekretaris</div>
               <div class="org-name">Siswi No. 03</div>
             </div>
@@ -858,7 +853,7 @@
           <div class="org-branch">
             <div class="org-connector-up"></div>
             <div class="org-card org-bendahara glass" onclick="openOrgModal('bendahara')">
-              <div class="org-avatar av-gray">B</div>
+              <div class="org-avatar av-gray" id="orgAvatar-bendahara">B</div>
               <div class="org-role">Bendahara</div>
               <div class="org-name">Siswi No. 19</div>
             </div>
@@ -866,7 +861,6 @@
         </div>
       </div>
 
-      <!-- Anggota info -->
       <div class="glass reveal" style="margin-top:2.5rem; padding:1.5rem 2rem; display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; border-radius:16px;">
         <div style="text-align:center;">
           <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--accent)">17</div>
@@ -886,7 +880,6 @@
     </div>
   </section>
 
-  <!-- GALERI -->
   <section class="section" id="galeri">
     <div class="section-header reveal">
       <span class="section-label">Momen Berharga</span>
@@ -927,7 +920,6 @@
     </div>
   </section>
 
-  <!-- TIMELINE KENANGAN -->
   <section class="section" id="kenangan">
     <div class="section-header reveal">
       <span class="section-label">Perjalanan Kita</span>
@@ -980,8 +972,6 @@
       </div>
     </div>
   </section>
-
-  <!-- QUOTES -->
   <section class="section">
     <div class="section-header reveal">
       <span class="section-label">Pesan & Harapan</span>
@@ -1005,14 +995,15 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">XII TITL · Angkatan 11</div>
   <div class="footer-sub">Teknik Instalasi Tenaga Listrik · 2023 – 2026</div>
   <div class="footer-hearts">✦ Kenangan ini akan selalu ada di hati ✦</div>
+  <h6>
+    <p>&copy; 2026 Rizky Kurniawan. All Rights Reserved.</p>
+  </h6>
 </footer>
 
-<!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal-box" style="position:relative;" id="modalBox">
     <button class="modal-close" onclick="closeModalDirect()">✕</button>
@@ -1027,36 +1018,36 @@
 <script>
 // ====== DATA ======
 const students = [
-  { no: '01', name: 'Andre Eka Saputra', gender: 'L', hobby: 'Olahraga', quote: 'Kerja keras tidak pernah mengkhianati hasil.', image: 'https://drive.google.com/thumbnail?id=1gMJhdhmPC8yXZ_u-3nvE7QDYntfvM5Ms&sz=w800' },
-  { no: '02', name: 'Angga Danuarta', gender: 'L', hobby: 'Futsal', quote: 'Di lapangan kita lawan, di luar kita kawan.', image: 'https://drive.google.com/thumbnail?id=1fN-01lS-QBxYZz1-_RTVyO2or9nD-mN-&sz=w800' },
-  { no: '03', name: 'Azka Bari', gender: 'L', hobby: 'Drag', quote: 'Terus berjuang, jangan menyerah!', image: 'https://drive.google.com/thumbnail?id=1qsYPz6xXt8RX6-5BQSMesHXWoEm7cjjh&sz=w800' },
-  { no: '04', name: 'Dany Syam Pratama', gender: 'L', hobby: 'Musik', quote: 'Hidup tanpa musik seperti malam tanpa bintang.', image: 'https://drive.google.com/thumbnail?id=1kg4VDxIGL-za5EG36yw_uKIHW7R0jTgA&sz=w800' },
-  { no: '05', name: 'Deni Muhammad Ali', gender: 'L', hobby: 'Otomotif', quote: 'Jalanan adalah guru terbaik.', image: 'https://drive.google.com/thumbnail?id=1f8ZiU-BckpfQnV0EovmrBDXaoR9Lp0RW&sz=w800' },
-  { no: '06', name: 'Desi Wulandari', gender: 'P', hobby: 'Membaca', quote: 'Buku adalah jendela dunia.', image: 'https://drive.google.com/thumbnail?id=1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_&sz=w800' },
-  { no: '07', name: 'Diky Saputra', gender: 'L', hobby: 'Elektronika', quote: 'Setiap rangkaian punya ceritanya sendiri.', image: 'https://drive.google.com/thumbnail?id=1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF&sz=w800' },
-  { no: '08', name: 'Dito Irwansyah', gender: 'L', hobby: 'Basket', quote: 'Lompat lebih tinggi, raih mimpimu.', image: 'https://drive.google.com/thumbnail?id=1hEiKB35bi-6n9DJbxWoSLu2oq8j6seGF&sz=w800' },
-  { no: '09', name: 'Dzaky Thufail Ramadhan', gender: 'L', hobby: 'Fotografi', quote: 'Mengabadikan momen yang tak bisa diulang.', image: 'https://drive.google.com/thumbnail?id=1zVumOZ_w1rc3f3De9GrOvoWHxOGtcSAM&sz=w800' },
-  { no: '10', name: 'Egi Nurdiansyah', gender: 'L', hobby: 'Desain Grafis', quote: 'Kreativitas tanpa batas.', image: 'https://drive.google.com/thumbnail?id=1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA&sz=w800' },
-  { no: '11', name: 'Fajri Pratama', gender: 'L', hobby: 'Berenang', quote: 'Teruslah mengalir seperti air.', image: 'https://drive.google.com/thumbnail?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR&sz=w800' },
-  { no: '12', name: 'Intan Permatasari', gender: 'P', hobby: 'Menulis', quote: 'Kata-kata adalah kekuatan jiwa.', image: 'https://drive.google.com/thumbnail?id=1pqClfhnr8jm0VuHKnxk8n5pbR43JaHEI&sz=w800' },
-  { no: '13', name: 'Karina', gender: 'P', hobby: 'Menyanyi', quote: 'Biar lagu yang berbicara.', image: 'https://drive.google.com/thumbnail?id=1jLDWBOh2_cJeFG-DozHQk5enqXu-vQa-&sz=w800' },
-  { no: '14', name: 'Muhammad Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/thumbnail?id=1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN&sz=w800' },
-  { no: '15', name: 'Rendi Syaputra', gender: 'L', hobby: 'Bulu Tangkis', quote: 'Fokus pada tujuan, nikmati prosesnya.', image: 'https://drive.google.com/thumbnail?id=1u2Eed8MnIYyp4BQo1anLl4sOrzlcDPi4&sz=w800' },
-  { no: '16', name: 'Resti Puji Rahayu', gender: 'P', hobby: 'Memasak', quote: 'Cinta tulus diracik dengan ikhlas.', image: 'https://drive.google.com/thumbnail?id=1nytpun8y6NVYPGEzrrveQh8mSZe7ggVA&sz=w800' },
-  { no: '17', name: 'Ria Awaliyah', gender: 'P', hobby: 'Melukis', quote: 'Beri warna pada kanvas kehidupanmu.', image: 'https://drive.google.com/thumbnail?id=1FJ6y1x2LFvSxNWVxKtjG9HyTh0faFr1b&sz=w800' },
-  { no: '18', name: 'Ridho Syaputra', gender: 'L', hobby: 'Voli', quote: 'Satu tim, satu tujuan.', image: 'https://drive.google.com/thumbnail?id=13lDkLc0eV7u5jGNKkR8riCFtIkyz2A2D&sz=w800' },
-  { no: '19', name: 'Riski Apriansyah', gender: 'L', hobby: 'Sepeda', quote: 'Perjalanan jauh dimulai dari kayuhan pertama.', image: 'LINK_DRIVE_SISWA_19' },
-  { no: '20', name: 'Rizky Kurniawan', gender: 'L', hobby: 'Web Dev & Gaming', quote: 'Membangun masa depan satu baris kode demi satu baris.', image: 'https://drive.google.com/file/d/1XgrSHjBMi-aNOmWGjQwpGCuhU4W0ZJTp/view?usp=drivesdk' },
-  { no: '21', name: 'Sapta Juni Aditya', gender: 'L', hobby: 'Hiking', quote: 'Puncak terbaik masih menunggumu.', image: 'https://drive.google.com/thumbnail?id=11BU5eqYOgFYJZ_ee1LfwSwnoWHKeLNCq&sz=w800' },
-  { no: '22', name: 'Wafiq Hendi Pratama', gender: 'L', hobby: 'Gaming', quote: 'Main santai, raih kemenangan.', image: 'https://drive.google.com/thumbnail?id=1btshwcOYodvWrX-hznCsQ7D_TFl-Yfq3&sz=w800' },
+  { no: '01', name: 'Andre Eka Saputra', gender: 'L', hobby: 'Olahraga', quote: 'Kerja keras tidak pernah mengkhianati hasil.', image: 'https://drive.google.com/thumbnail?id=1gMJhdhmPC8yXZ_u-3nvE7QDYntfvM5Ms&sz=w400' },
+  { no: '02', name: 'Angga Danuarta', gender: 'L', hobby: 'Futsal', quote: 'Di lapangan kita lawan, di luar kita kawan.', image: 'https://drive.google.com/thumbnail?id=1fN-01lS-QBxYZz1-_RTVyO2or9nD-mN-&sz=w400' },
+  { no: '03', name: 'Azka Bari', gender: 'L', hobby: 'Drag', quote: 'Terus berjuang, jangan menyerah!', image: 'https://drive.google.com/thumbnail?id=1qsYPz6xXt8RX6-5BQSMesHXWoEm7cjjh&sz=w400' },
+  { no: '04', name: 'Dany Syam Pratama', gender: 'L', hobby: 'Musik', quote: 'Hidup tanpa musik seperti malam tanpa bintang.', image: 'https://drive.google.com/thumbnail?id=1kg4VDxIGL-za5EG36yw_uKIHW7R0jTgA&sz=w400' },
+  { no: '05', name: 'Deni Muhammad Ali', gender: 'L', hobby: 'Otomotif', quote: 'Jalanan adalah guru terbaik.', image: 'https://drive.google.com/thumbnail?id=1f8ZiU-BckpfQnV0EovmrBDXaoR9Lp0RW&sz=w400' },
+  { no: '06', name: 'Desi Wulandari', gender: 'P', hobby: 'Membaca', quote: 'Buku adalah jendela dunia.', image: 'https://drive.google.com/thumbnail?id=1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_&sz=w400' },
+  { no: '07', name: 'Diky Saputra', gender: 'L', hobby: 'Elektronika', quote: 'Setiap rangkaian punya ceritanya sendiri.', image: 'https://drive.google.com/thumbnail?id=1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF&sz=w400' },
+  { no: '08', name: 'Dito Irwansyah', gender: 'L', hobby: 'Basket', quote: 'Lompat lebih tinggi, raih mimpimu.', image: 'https://drive.google.com/thumbnail?id=1hEiKB35bi-6n9DJbxWoSLu2oq8j6seGF&sz=w400' },
+  { no: '09', name: 'Dzaky Thufail Ramadhan', gender: 'L', hobby: 'Fotografi', quote: 'Mengabadikan momen yang tak bisa diulang.', image: 'https://drive.google.com/thumbnail?id=1zVumOZ_w1rc3f3De9GrOvoWHxOGtcSAM&sz=w400' },
+  { no: '10', name: 'Egi Nurdiansyah', gender: 'L', hobby: 'Desain Grafis', quote: 'Kreativitas tanpa batas.', image: 'https://drive.google.com/thumbnail?id=1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA&sz=w400' },
+  { no: '11', name: 'Fajri Pratama', gender: 'L', hobby: 'Berenang', quote: 'Teruslah mengalir seperti air.', image: 'https://drive.google.com/thumbnail?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR&sz=w400' },
+  { no: '12', name: 'Intan Permatasari', gender: 'P', hobby: 'Menulis', quote: 'Kata-kata adalah kekuatan jiwa.', image: 'https://drive.google.com/thumbnail?id=1pqClfhnr8jm0VuHKnxk8n5pbR43JaHEI&sz=w400' },
+  { no: '13', name: 'Karina', gender: 'P', hobby: 'Menyanyi', quote: 'Biar lagu yang berbicara.', image: 'https://drive.google.com/thumbnail?id=1jLDWBOh2_cJeFG-DozHQk5enqXu-vQa-&sz=w400' },
+  { no: '14', name: 'Muhammad Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/thumbnail?id=1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN&sz=w400' },
+  { no: '15', name: 'Rendi Syaputra', gender: 'L', hobby: 'Bulu Tangkis', quote: 'Fokus pada tujuan, nikmati prosesnya.', image: 'https://drive.google.com/thumbnail?id=1u2Eed8MnIYyp4BQo1anLl4sOrzlcDPi4&sz=w400' },
+  { no: '16', name: 'Resti Puji Rahayu', gender: 'P', hobby: 'Memasak', quote: 'Cinta tulus diracik dengan ikhlas.', image: 'https://drive.google.com/thumbnail?id=1nytpun8y6NVYPGEzrrveQh8mSZe7ggVA&sz=w400' },
+  { no: '17', name: 'Ria Awaliyah', gender: 'P', hobby: 'Melukis', quote: 'Beri warna pada kanvas kehidupanmu.', image: 'https://drive.google.com/thumbnail?id=1FJ6y1x2LFvSxNWVxKtjG9HyTh0faFr1b&sz=w400' },
+  { no: '18', name: 'Ridho Syaputra', gender: 'L', hobby: 'Voli', quote: 'Satu tim, satu tujuan.', image: 'https://drive.google.com/thumbnail?id=13lDkLc0eV7u5jGNKkR8riCFtIkyz2A2D&sz=w400' },
+  { no: '19', name: 'Riski Apriansyah', gender: 'L', hobby: 'Sepeda', quote: 'Perjalanan jauh dimulai dari kayuhan pertama.', image: 'https://drive.google.com/thumbnail?id=LINK_DRIVE_SISWA_19&sz=w400' },
+  { no: '20', name: 'Rizky Kurniawan', gender: 'L', hobby: 'Web Dev & Gaming', quote: 'Membangun masa depan satu baris kode demi satu baris.', image: 'https://drive.google.com/thumbnail?id=1XgrSHjBMi-aNOmWGjQwpGCuhU4W0ZJTp&sz=w400' },
+  { no: '21', name: 'Sapta Juni Aditya', gender: 'L', hobby: 'Hiking', quote: 'Puncak terbaik masih menunggumu.', image: 'https://drive.google.com/thumbnail?id=11BU5eqYOgFYJZ_ee1LfwSwnoWHKeLNCq&sz=w400' },
+  { no: '22', name: 'Wafiq Hendi Pratama', gender: 'L', hobby: 'Gaming', quote: 'Main santai, raih kemenangan.', image: 'https://drive.google.com/thumbnail?id=1btshwcOYodvWrX-hznCsQ7D_TFl-Yfq3&sz=w400' },
 ];
 
 const orgData = {
-  wali: { name: 'Rina Puji Rahayu', detail: 'Wali Kelas XII TITL · 2023–2026', image: 'LINK_DRIVE_FOTO_WALI_KELAS', tags: ['Pembimbing', 'Inspirasi', 'Pelindung'], quote: 'Menjadi wali kelas kalian adalah kehormatan terbesar. Teruslah bersinar, anak-anakku.' },
-  ketua: { name: 'Fajri Pratama', detail: 'Ketua Kelas · No. 08', image: 'LINK_DRIVE_FOTO_KETUA', tags: ['Pemimpin', 'Basket', 'Tanggung Jawab'], quote: 'Pemimpin sejati melayani, bukan dilayani. Bangga bisa memimpin keluarga TITL 11.' },
-  wakil: { name: 'Egi Nurdianyah', detail: 'Wakil Ketua · No. 15', image: 'LINK_DRIVE_FOTO_WAKIL', tags: ['Disiplin', 'Berenang', 'Koordinator'], quote: 'Terus bergerak maju, jangan pernah diam. Bersama kita bisa!' },
-  sekretaris: { name: '?', detail: 'Sekretaris · No. 03', image: 'LINK_DRIVE_FOTO_SEKRETARIS', tags: ['Rapi', 'Teliti', 'Membaca'], quote: 'Setiap catatan adalah kenangan yang tersimpan rapi di hati.' },
-  bendahara: { name: '?', detail: 'Bendahara · No. 19', image: 'LINK_DRIVE_FOTO_BENDAHARA', tags: ['Amanah', 'Memasak', 'Kepercayaan'], quote: 'Kepercayaan adalah amanah yang dijaga dengan sepenuh hati.' },
+  wali: { name: 'Rina Puji Rahayu', detail: 'Wali Kelas XII TITL · 2023–2026', image: 'https://drive.google.com/thumbnail?id=LINK_DRIVE_FOTO_WALI_KELAS&sz=w400', tags: ['Pembimbing', 'Inspirasi', 'Pelindung'], quote: 'Menjadi wali kelas kalian adalah kehormatan terbesar. Teruslah bersinar, anak-anakku.', avatar: 'WK' },
+  ketua: { name: 'Fajri Pratama', detail: 'Ketua Kelas · No. 08', image: 'https://drive.google.com/thumbnail?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR&sz=w400', tags: ['Pemimpin', 'Basket', 'Tanggung Jawab'], quote: 'Pemimpin sejati melayani, bukan dilayani. Bangga bisa memimpin keluarga TITL 11.', avatar: 'K' },
+  wakil: { name: 'Egi Nurdiansyah', detail: 'Wakil Ketua · No. 15', image: 'https://drive.google.com/thumbnail?id=1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA&sz=w400', tags: ['Disiplin', 'Berenang', 'Koordinator'], quote: 'Terus bergerak maju, jangan pernah diam. Bersama kita bisa!', avatar: 'W' },
+  sekretaris: { name: 'Desi Wulandari', detail: 'Sekretaris · No. 03', image: 'https://drive.google.com/thumbnail?id=1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_&sz=w400', tags: ['Rapi', 'Teliti', 'Membaca'], quote: 'Setiap catatan adalah kenangan yang tersimpan rapi di hati.', avatar: 'S' },
+  bendahara: { name: 'Diky Saputra', detail: 'Bendahara · No. 19', image: 'https://drive.google.com/thumbnail?id=1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF&sz=w400', tags: ['Amanah', 'Memasak', 'Kepercayaan'], quote: 'Kepercayaan adalah amanah yang dijaga dengan sepenuh hati.', avatar: 'B' },
 };
 
 // ====== RENDER STUDENTS ======
@@ -1072,7 +1063,7 @@ function renderStudents(filter = 'all') {
     card.className = 'student-card glass';
     card.style.animationDelay = `${i * 0.05}s`;
     card.dataset.gender = s.gender;
-        const hasImage = s.image && s.image.startsWith('http');
+    const hasImage = s.image && s.image.startsWith('http') && !s.image.includes('LINK_DRIVE');
 
     card.innerHTML = `
       <div class="student-photo-wrap">
@@ -1100,7 +1091,25 @@ function renderStudents(filter = 'all') {
     grid.appendChild(card);
   });
 }
+
+// Render Org Avatar pada halaman utama
+function renderOrgAvatars() {
+  Object.keys(orgData).forEach(key => {
+    const d = orgData[key];
+    const hasImage = d.image && d.image.startsWith('http') && !d.image.includes('LINK_DRIVE');
+    const avatarEl = document.getElementById(`orgAvatar-${key}`);
+    if(avatarEl) {
+      if(hasImage) {
+        avatarEl.innerHTML = `<img src="${d.image}" alt="${d.name}">`;
+      } else {
+        avatarEl.textContent = d.avatar;
+      }
+    }
+  });
+}
+
 renderStudents();
+renderOrgAvatars();
 
 function filterStudents(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1110,8 +1119,10 @@ function filterStudents(type, btn) {
 
 // ====== MODAL ======
 function openStudentModal(s) {
+  const hasImage = s.image && s.image.startsWith('http') && !s.image.includes('LINK_DRIVE');
   const initials = s.name.split(' ').map(w => w[0]).join('').slice(0,2);
-  document.getElementById('modalAvatar').textContent = initials;
+  
+  document.getElementById('modalAvatar').innerHTML = hasImage ? `<img src="${s.image}" alt="${s.name}">` : initials;
   document.getElementById('modalName').textContent = s.name;
   document.getElementById('modalDetail').textContent = `No. Absen ${s.no} · ${s.gender === 'L' ? 'Putra' : 'Putri'} · XII TITL 2026`;
   document.getElementById('modalTags').innerHTML = `<span class="modal-tag">${s.hobby}</span><span class="modal-tag">TITL</span><span class="modal-tag">Angkatan 11</span>`;
@@ -1121,7 +1132,9 @@ function openStudentModal(s) {
 
 function openOrgModal(key) {
   const d = orgData[key];
-  document.getElementById('modalAvatar').textContent = d.avatar;
+  const hasImage = d.image && d.image.startsWith('http') && !d.image.includes('LINK_DRIVE');
+
+  document.getElementById('modalAvatar').innerHTML = hasImage ? `<img src="${d.image}" alt="${d.name}">` : d.avatar;
   document.getElementById('modalName').textContent = d.name;
   document.getElementById('modalDetail').textContent = d.detail;
   document.getElementById('modalTags').innerHTML = d.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
@@ -1168,23 +1181,24 @@ updateCountdown();
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
 let mx = 0, my = 0, tx = 0, ty = 0;
+let isHover = false;
+
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx - 6 + 'px';
-  cursor.style.top = my - 6 + 'px';
+  cursor.style.transform = `translate3d(${mx - 6}px, ${my - 6}px, 0) scale(${isHover ? 2.5 : 1})`;
 });
+
 function animTrail() {
   tx += (mx - tx) * 0.12;
   ty += (my - ty) * 0.12;
-  trail.style.left = tx - 18 + 'px';
-  trail.style.top = ty - 18 + 'px';
+  trail.style.transform = `translate3d(${tx - 18}px, ${ty - 18}px, 0)`;
   requestAnimationFrame(animTrail);
 }
 animTrail();
 
 document.querySelectorAll('button, a, .student-card, .org-card, .gallery-item').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
-  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+  el.addEventListener('mouseenter', () => isHover = true);
+  el.addEventListener('mouseleave', () => isHover = false);
 });
 
 // ====== PARTICLES ======
@@ -1211,42 +1225,15 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal, .section-header').forEach(el => {
   observer.observe(el);
 });
-// ====== FITUR KEAMANAN ======
-// Mencegah klik kanan (Context Menu)
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-});
 
-// Mencegah shortcut keyboard untuk Inspect Element & View Source
+// ====== FITUR KEAMANAN ======
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.addEventListener('keydown', function(e) {
-  // Mencegah F12
-  if (e.key === 'F12') {
-    e.preventDefault();
-  }
-  // Mencegah Ctrl+Shift+I (Inspect)
-  if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-    e.preventDefault();
-  }
-  // Mencegah Ctrl+Shift+C (Inspect Element)
-  if (e.ctrlKey && e.shiftKey && e.key === 'C') {
-    e.preventDefault();
-  }
-  // Mencegah Ctrl+Shift+J (Console)
-  if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-    e.preventDefault();
-  }
-  // Mencegah Ctrl+U (View Source)
-  if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-    e.preventDefault();
-  }
+  if (e.key === 'F12') e.preventDefault();
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) e.preventDefault();
+  if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
 });
 
 </script>
-    <footer>
-      <h6>
-        <p>&copy; 2026 Rizky Kurniawan. All Rights Reserved.</p>
-      </h6>
-    </footer>
-
 </body>
 </html>
