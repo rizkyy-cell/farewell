@@ -1116,7 +1116,7 @@ const students = [
   { no: '11', name: 'Fajri Pratama', gender: 'L', hobby: 'Berenang', quote: 'Teruslah mengalir seperti air.', image: 'https://drive.google.com/thumbnail?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR&sz=w400' },
   { no: '12', name: 'Intan Permatasari', gender: 'P', hobby: 'Menulis', quote: 'Kata-kata adalah kekuatan jiwa.', image: 'https://drive.google.com/thumbnail?id=1pqClfhnr8jm0VuHKnxk8n5pbR43JaHEI&sz=w400' },
   { no: '13', name: 'Karina', gender: 'P', hobby: 'Menyanyi', quote: 'Biar lagu yang berbicara.', image: 'https://drive.google.com/thumbnail?id=1jLDWBOh2_cJeFG-DozHQk5enqXu-vQa-&sz=w400' },
-  { no: '14', name: 'Muhammad Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/thumbnail?id=1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN&sz=w400' },
+  { no: '14', name: 'M.Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/thumbnail?id=1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN&sz=w400' },
   { no: '15', name: 'Rendi Syaputra', gender: 'L', hobby: 'Bulu Tangkis', quote: 'Fokus pada tujuan, nikmati prosesnya.', image: 'https://drive.google.com/thumbnail?id=1u2Eed8MnIYyp4BQo1anLl4sOrzlcDPi4&sz=w400' },
   { no: '16', name: 'Resti Putri Rahayu', gender: 'P', hobby: 'Memasak', quote: 'Cinta tulus diracik dengan ikhlas.', image: 'https://drive.google.com/thumbnail?id=1nytpun8y6NVYPGEzrrveQh8mSZe7ggVA&sz=w400' },
   { no: '17', name: 'Ria Awaliyah', gender: 'P', hobby: 'Melukis', quote: 'Beri warna pada kanvas kehidupanmu.', image: 'https://drive.google.com/thumbnail?id=1FJ6y1x2LFvSxNWVxKtjG9HyTh0faFr1b&sz=w400' },
@@ -1128,12 +1128,42 @@ const students = [
 ];
 
 const orgData = {
-  wali: { name: 'Rina Puji Rahayu', detail: 'Wali Kelas XII TITL · 2023–2026', image: 'https://drive.google.com/thumbnail?id=LINK_DRIVE_FOTO_WALI_KELAS&sz=w400', tags: ['Pembimbing', 'Inspirasi', 'Pelindung'], quote: 'Menjadi wali kelas kalian adalah kehormatan terbesar. Teruslah bersinar, anak-anakku.', avatar: 'WK' },
-  ketua: { name: 'Fajri Pratama', detail: 'Ketua Kelas · No. 08', image: 'https://drive.google.com/thumbnail?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR&sz=w400', tags: ['Pemimpin', 'Basket', 'Tanggung Jawab'], quote: 'Pemimpin sejati melayani, bukan dilayani. Bangga bisa memimpin keluarga TITL 11.', avatar: 'K' },
-  wakil: { name: 'Egi Nurdiansyah', detail: 'Wakil Ketua · No. 15', image: 'https://drive.google.com/thumbnail?id=1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA&sz=w400', tags: ['Disiplin', 'Berenang', 'Koordinator'], quote: 'Terus bergerak maju, jangan pernah diam. Bersama kita bisa!', avatar: 'W' },
-  sekretaris: { name: 'Desi Wulandari', detail: 'Sekretaris · No. 03', image: 'https://drive.google.com/thumbnail?id=1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_&sz=w400', tags: ['Rapi', 'Teliti', 'Membaca'], quote: 'Setiap catatan adalah kenangan yang tersimpan rapi di hati.', avatar: 'S' },
-  bendahara: { name: 'Diky Saputra', detail: 'Bendahara · No. 19', image: 'https://drive.google.com/thumbnail?id=1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF&sz=w400', tags: ['Amanah', 'Memasak', 'Kepercayaan'], quote: 'Kepercayaan adalah amanah yang dijaga dengan sepenuh hati.', avatar: 'B' },
+    wali: { name: 'Rina Puji Rahayu', detail: 'Wali Kelas XII TITL · 2023–2026', image: 'https://drive.google.com/thumbnail?id=1jWit2OXgVOE2FmrSp_axnhVhXhaPr5VE&sz=w400', tags: ['Pembimbing', 'Inspirasi', 'Pelindung'], quote: 'Menjadi wali kelas kalian adalah kehormatan terbesar. Teruslah bersinar, anak-anakku.', avatar: 'WK' },
+
+  ketua: { 
+    name: 'Fajri Pratama', 
+    detail: 'Ketua Kelas · No. 08', 
+    image: 'https://drive.google.com/thumbnail?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR&sz=w400', 
+    tags: ['Pemimpin', 'Basket', 'Tanggung Jawab'], 
+    quote: 'Pemimpin sejati melayani, bukan dilayani. Bangga bisa memimpin keluarga TITL 11.', 
+    avatar: 'K' 
+  },
+  wakil: { 
+    name: 'Egi Nurdiansyah', 
+    detail: 'Wakil Ketua · No. 15', 
+    image: 'https://drive.google.com/thumbnail?id=1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA&sz=w400', 
+    tags: ['Disiplin', 'Berenang', 'Koordinator'], 
+    quote: 'Terus bergerak maju, jangan pernah diam. Bersama kita bisa!', 
+    avatar: 'W' 
+  },
+  sekretaris: { 
+    name: 'Desi Wulandari', 
+    detail: 'Sekretaris · No. 03', 
+    image: 'https://drive.google.com/thumbnail?id=1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_&sz=w400', 
+    tags: ['Rapi', 'Teliti', 'Membaca'], 
+    quote: 'Setiap catatan adalah kenangan yang tersimpan rapi di hati.', 
+    avatar: 'S' 
+  },
+  bendahara: { 
+    name: 'Diky Saputra', 
+    detail: 'Bendahara · No. 19', 
+    image: 'https://drive.google.com/thumbnail?id=1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF&sz=w400', 
+    tags: ['Amanah', 'Memasak', 'Kepercayaan'], 
+    quote: 'Kepercayaan adalah amanah yang dijaga dengan sepenuh hati.', 
+    avatar: 'B' 
+  },
 };
+
 
 // ====== RENDER STUDENTS ======
 function renderStudents(filter = 'all') {
