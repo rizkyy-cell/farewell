@@ -1072,13 +1072,18 @@ function renderStudents(filter = 'all') {
     card.className = 'student-card glass';
     card.style.animationDelay = `${i * 0.05}s`;
     card.dataset.gender = s.gender;
+        const hasImage = s.image && s.image.startsWith('http');
+
     card.innerHTML = `
       <div class="student-photo-wrap">
         <div class="student-photo">
-          <div class="photo-placeholder" style="background:${bg}">
-            <div class="icon">${s.gender === 'P' ? '👩‍🎓' : '👨‍🎓'}</div>
-            ${initials}
-          </div>
+          ${hasImage 
+            ? `<img src="${s.image}" alt="${s.name}">` 
+            : `<div class="photo-placeholder" style="background:${bg}">
+                 <div class="icon">${s.gender === 'P' ? '👩‍🎓' : '👨‍🎓'}</div>
+                 ${initials}
+               </div>`
+          }
         </div>
         <div class="student-gender ${s.gender === 'L' ? 'gender-m' : 'gender-f'}">${s.gender === 'L' ? '♂' : '♀'}</div>
         <div class="student-overlay">
