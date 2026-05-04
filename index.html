@@ -1026,30 +1026,29 @@
 
 <script>
 // ====== DATA ======
-// TAMBAHKAN LINK GAMBAR DI PROPERTY 'image'
 const students = [
-  { no: '01', name: 'Andre Eka Saputra', gender: 'L', hobby: 'Olahraga', quote: 'Kerja keras tidak pernah mengkhianati hasil.', image: 'https://drive.google.com/file/d/1gMJhdhmPC8yXZ_u-3nvE7QDYntfvM5Ms/view?usp=drivesdk' },
-  { no: '02', name: 'Angga Danuarta', gender: 'L', hobby: 'Futsal', quote: 'Di lapangan kita lawan, di luar kita kawan.', image: 'https://drive.google.com/file/d/1fN-01lS-QBxYZz1-_RTVyO2or9nD-mN-/view?usp=drivesdk' },
-  { no: '03', name: 'Azka Bari', gender: 'L', hobby: 'Drag', quote: 'Terus berjuang, jangan menyerah!', image: 'https://drive.google.com/file/d/1qsYPz6xXt8RX6-5BQSMesHXWoEm7cjjh/view?usp=drivesdk' },
-  { no: '04', name: 'Dany Syam Pratama', gender: 'L', hobby: 'Musik', quote: 'Hidup tanpa musik seperti malam tanpa bintang.', image: 'https://drive.google.com/file/d/1kg4VDxIGL-za5EG36yw_uKIHW7R0jTgA/view?usp=drivesdk' },
-  { no: '05', name: 'Deni Muhammad Ali', gender: 'L', hobby: 'Otomotif', quote: 'Jalanan adalah guru terbaik.', image: 'https://drive.google.com/file/d/1f8ZiU-BckpfQnV0EovmrBDXaoR9Lp0RW/view?usp=drivesdk' },
-  { no: '06', name: 'Desi Wulandari', gender: 'P', hobby: 'Membaca', quote: 'Buku adalah jendela dunia.', image: 'https://drive.google.com/file/d/1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_/view?usp=drivesdk' },
-  { no: '07', name: 'Diky Saputra', gender: 'L', hobby: 'Elektronika', quote: 'Setiap rangkaian punya ceritanya sendiri.', image: 'https://drive.google.com/file/d/1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF/view?usp=drivesdk' },
-  { no: '08', name: 'Dito Irwansyah', gender: 'L', hobby: 'Basket', quote: 'Lompat lebih tinggi, raih mimpimu.', image: 'https://drive.google.com/file/d/1hEiKB35bi-6n9DJbxWoSLu2oq8j6seGF/view?usp=drivesdk' },
-  { no: '09', name: 'Dzaky Thufail Ramadhan', gender: 'L', hobby: 'Fotografi', quote: 'Mengabadikan momen yang tak bisa diulang.', image: 'https://drive.google.com/file/d/1zVumOZ_w1rc3f3De9GrOvoWHxOGtcSAM/view?usp=drivesdk' },
-  { no: '10', name: 'Egi Nurdiansyah', gender: 'L', hobby: 'Desain Grafis', quote: 'Kreativitas tanpa batas.', image: 'https://drive.google.com/file/d/1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA/view?usp=drivesdk' },
-  { no: '11', name: 'Fajri Pratama', gender: 'L', hobby: 'Berenang', quote: 'Teruslah mengalir seperti air.', image: 'https://drive.google.com/file/d/1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR/view?usp=drivesdk' },
-  { no: '12', name: 'Intan Permatasari', gender: 'P', hobby: 'Menulis', quote: 'Kata-kata adalah kekuatan jiwa.', image: 'https://drive.google.com/file/d/1pqClfhnr8jm0VuHKnxk8n5pbR43JaHEI/view?usp=drivesdk' },
-  { no: '13', name: 'Karina', gender: 'P', hobby: 'Menyanyi', quote: 'Biar lagu yang berbicara.', image: 'https://drive.google.com/file/d/1jLDWBOh2_cJeFG-DozHQk5enqXu-vQa-/view?usp=drivesdk' },
-  { no: '14', name: 'Muhammad Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/file/d/1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN/view?usp=drivesdk' },
-  { no: '15', name: 'Rendi Syaputra', gender: 'L', hobby: 'Bulu Tangkis', quote: 'Fokus pada tujuan, nikmati prosesnya.', image: 'https://drive.google.com/file/d/1u2Eed8MnIYyp4BQo1anLl4sOrzlcDPi4/view?usp=drivesdk' },
-  { no: '16', name: 'Resti Puji Rahayu', gender: 'P', hobby: 'Memasak', quote: 'Cinta tulus diracik dengan ikhlas.', image: 'https://drive.google.com/file/d/1nytpun8y6NVYPGEzrrveQh8mSZe7ggVA/view?usp=drivesdk' },
-  { no: '17', name: 'Ria Awaliyah', gender: 'P', hobby: 'Melukis', quote: 'Beri warna pada kanvas kehidupanmu.', image: 'https://drive.google.com/file/d/1FJ6y1x2LFvSxNWVxKtjG9HyTh0faFr1b/view?usp=drivesdk' },
-  { no: '18', name: 'Ridho Syaputra', gender: 'L', hobby: 'Voli', quote: 'Satu tim, satu tujuan.', image: 'https://drive.google.com/file/d/13lDkLc0eV7u5jGNKkR8riCFtIkyz2A2D/view?usp=drivesdk' },
+  { no: '01', name: 'Andre Eka Saputra', gender: 'L', hobby: 'Olahraga', quote: 'Kerja keras tidak pernah mengkhianati hasil.', image: 'https://drive.google.com/uc?id=1gMJhdhmPC8yXZ_u-3nvE7QDYntfvM5Ms' },
+  { no: '02', name: 'Angga Danuarta', gender: 'L', hobby: 'Futsal', quote: 'Di lapangan kita lawan, di luar kita kawan.', image: 'https://drive.google.com/uc?id=1fN-01lS-QBxYZz1-_RTVyO2or9nD-mN-' },
+  { no: '03', name: 'Azka Bari', gender: 'L', hobby: 'Drag', quote: 'Terus berjuang, jangan menyerah!', image: 'https://drive.google.com/uc?id=1qsYPz6xXt8RX6-5BQSMesHXWoEm7cjjh' },
+  { no: '04', name: 'Dany Syam Pratama', gender: 'L', hobby: 'Musik', quote: 'Hidup tanpa musik seperti malam tanpa bintang.', image: 'https://drive.google.com/uc?id=1kg4VDxIGL-za5EG36yw_uKIHW7R0jTgA' },
+  { no: '05', name: 'Deni Muhammad Ali', gender: 'L', hobby: 'Otomotif', quote: 'Jalanan adalah guru terbaik.', image: 'https://drive.google.com/uc?id=1f8ZiU-BckpfQnV0EovmrBDXaoR9Lp0RW' },
+  { no: '06', name: 'Desi Wulandari', gender: 'P', hobby: 'Membaca', quote: 'Buku adalah jendela dunia.', image: 'https://drive.google.com/uc?id=1wZ93CgWXNNWDPZItykM5u8pXYU3vbO3_' },
+  { no: '07', name: 'Diky Saputra', gender: 'L', hobby: 'Elektronika', quote: 'Setiap rangkaian punya ceritanya sendiri.', image: 'https://drive.google.com/uc?id=1ApeyT_5y5mGWM3EtEKOj_53XsNoJzeaF' },
+  { no: '08', name: 'Dito Irwansyah', gender: 'L', hobby: 'Basket', quote: 'Lompat lebih tinggi, raih mimpimu.', image: 'https://drive.google.com/uc?id=1hEiKB35bi-6n9DJbxWoSLu2oq8j6seGF' },
+  { no: '09', name: 'Dzaky Thufail Ramadhan', gender: 'L', hobby: 'Fotografi', quote: 'Mengabadikan momen yang tak bisa diulang.', image: 'https://drive.google.com/uc?id=1zVumOZ_w1rc3f3De9GrOvoWHxOGtcSAM' },
+  { no: '10', name: 'Egi Nurdiansyah', gender: 'L', hobby: 'Desain Grafis', quote: 'Kreativitas tanpa batas.', image: 'https://drive.google.com/uc?id=1eq_t6Lgm0QuTsbNKSau03v9GfOpaSEZA' },
+  { no: '11', name: 'Fajri Pratama', gender: 'L', hobby: 'Berenang', quote: 'Teruslah mengalir seperti air.', image: 'https://drive.google.com/uc?id=1Rj3nG8ab2b5rXEf025wZNRBWxOMq7jRR' },
+  { no: '12', name: 'Intan Permatasari', gender: 'P', hobby: 'Menulis', quote: 'Kata-kata adalah kekuatan jiwa.', image: 'https://drive.google.com/uc?id=1pqClfhnr8jm0VuHKnxk8n5pbR43JaHEI' },
+  { no: '13', name: 'Karina', gender: 'P', hobby: 'Menyanyi', quote: 'Biar lagu yang berbicara.', image: 'https://drive.google.com/uc?id=1jLDWBOh2_cJeFG-DozHQk5enqXu-vQa-' },
+  { no: '14', name: 'Muhammad Iskandar', gender: 'L', hobby: 'Gaming', quote: 'Inovasi adalah kunci kemajuan.', image: 'https://drive.google.com/uc?id=1pdvEa8C0jqR_erKuJB8ime3L0lmAknqN' },
+  { no: '15', name: 'Rendi Syaputra', gender: 'L', hobby: 'Bulu Tangkis', quote: 'Fokus pada tujuan, nikmati prosesnya.', image: 'https://drive.google.com/uc?id=1u2Eed8MnIYyp4BQo1anLl4sOrzlcDPi4' },
+  { no: '16', name: 'Resti Puji Rahayu', gender: 'P', hobby: 'Memasak', quote: 'Cinta tulus diracik dengan ikhlas.', image: 'https://drive.google.com/uc?id=1nytpun8y6NVYPGEzrrveQh8mSZe7ggVA' },
+  { no: '17', name: 'Ria Awaliyah', gender: 'P', hobby: 'Melukis', quote: 'Beri warna pada kanvas kehidupanmu.', image: 'https://drive.google.com/uc?id=1FJ6y1x2LFvSxNWVxKtjG9HyTh0faFr1b' },
+  { no: '18', name: 'Ridho Syaputra', gender: 'L', hobby: 'Voli', quote: 'Satu tim, satu tujuan.', image: 'https://drive.google.com/uc?id=13lDkLc0eV7u5jGNKkR8riCFtIkyz2A2D' },
   { no: '19', name: 'Riski Apriansyah', gender: 'L', hobby: 'Sepeda', quote: 'Perjalanan jauh dimulai dari kayuhan pertama.', image: 'LINK_DRIVE_SISWA_19' },
   { no: '20', name: 'Rizky Kurniawan', gender: 'L', hobby: 'Web Dev & Gaming', quote: 'Membangun masa depan satu baris kode demi satu baris.', image: 'LINK_DRIVE_SISWA_20' },
-  { no: '21', name: 'Sapta Juni Aditya', gender: 'L', hobby: 'Hiking', quote: 'Puncak terbaik masih menunggumu.', image: 'https://drive.google.com/file/d/11BU5eqYOgFYJZ_ee1LfwSwnoWHKeLNCq/view?usp=drivesdk' },
-  { no: '22', name: 'Wafiq Hendi Pratama', gender: 'L', hobby: 'Gaming', quote: 'Main santai, raih kemenangan.', image: 'https://drive.google.com/file/d/1btshwcOYodvWrX-hznCsQ7D_TFl-Yfq3/view?usp=drivesdk' },
+  { no: '21', name: 'Sapta Juni Aditya', gender: 'L', hobby: 'Hiking', quote: 'Puncak terbaik masih menunggumu.', image: 'https://drive.google.com/uc?id=11BU5eqYOgFYJZ_ee1LfwSwnoWHKeLNCq' },
+  { no: '22', name: 'Wafiq Hendi Pratama', gender: 'L', hobby: 'Gaming', quote: 'Main santai, raih kemenangan.', image: 'https://drive.google.com/uc?id=1btshwcOYodvWrX-hznCsQ7D_TFl-Yfq3' },
 ];
 
 const orgData = {
@@ -1238,10 +1237,11 @@ document.addEventListener('keydown', function(e) {
 });
 
 </script>
-<footer>
-      <h6
-        <p>&copy; 2026 Riski Kurniawan. All Rights Reserved.</p>
-        </h6>
+    <footer>
+      <h6>
+        <p>&copy; 2026 Rizky Kurniawan. All Rights Reserved.</p>
+      </h6>
     </footer>
+
 </body>
 </html>
