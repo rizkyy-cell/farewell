@@ -971,49 +971,8 @@
       <span class="section-label">Momen Kelulusan 6 april 2026</span>
       <h2 class="section-title">Galeri Kenangan</h2>
     </div>
-           <div class="gallery-grid reveal">
-      <div class="gallery-item gc-1 glass">
-        <img src="https://drive.google.com/thumbnail?id=1NzlbRzy_uh0sog18hornSN7GOREq4NfU&sz=w800" alt="Foto Kelas">
-        <div class="gallery-ph">📸</div>
-        <div class="gallery-caption">Foto Kelulusan<div class="gallery-caption-sub">Tahun Ajaran 2025/2026</div></div>
-      </div>
-      
-      <div class="gallery-item gc-2 glass">
-        <img src="https://drive.google.com/thumbnail?id=MASUKIN_ID_FOTO_2&sz=w800" alt="Wisuda">
-        <div class="gallery-ph">🎓</div>
-        <div class="gallery-caption">Upacara & Wisuda<div class="gallery-caption-sub">Momen Kelulusan</div></div>
-      </div>
-      
-      <div class="gallery-item gc-3 glass">
-        <img src="https://drive.google.com/thumbnail?id=MASUKIN_ID_FOTO_3&sz=w800" alt="Praktik">
-        <div class="gallery-ph">⚡</div>
-        <div class="gallery-caption">Praktik TITL<div class="gallery-caption-sub">Lab Instalasi</div></div>
-      </div>
-      
-      <div class="gallery-item gc-4 glass">
-        <img src="https://drive.google.com/thumbnail?id=MASUKIN_ID_FOTO_4&sz=w800" alt="Outing">
-        <div class="gallery-ph">🏕️</div>
-        <div class="gallery-caption">Outing Class<div class="gallery-caption-sub">Perjalanan Bersama</div></div>
-      </div>
-      
-      <div class="gallery-item gc-5 glass">
-        <img src="https://drive.google.com/thumbnail?id=MASUKIN_ID_FOTO_5&sz=w800" alt="Prestasi">
-        <div class="gallery-ph">🏆</div>
-        <div class="gallery-caption">Kebanggaan Kelas<div class="gallery-caption-sub">Prestasi & Lomba</div></div>
-      </div>
-      
-      <div class="gallery-item gc-6 glass">
-        <img src="https://drive.google.com/thumbnail?id=MASUKIN_ID_FOTO_6&sz=w800" alt="Ulang Tahun">
-        <div class="gallery-ph">🎉</div>
-        <div class="gallery-caption">Perayaan Kelulusan<div class="gallery-caption-sub">Kebersamaan</div></div>
-      </div>
-      
-      <div class="gallery-item gc-7 glass">
-        <img src="https://drive.google.com/thumbnail?id=1NzlbRzy_uh0sog18hornSN7GOREq4NfU&sz=w800" alt="Perpisahan">
-        <div class="gallery-ph">🌙</div>
-        <div class="gallery-caption">Foto Perpisahan<div class="gallery-caption-sub">Kenangan Terindah</div></div>
-      </div>
-    </div>
+           <div class="gallery-grid reveal" id="galleryGrid">
+  </div>
     
   </section>
   <section class="section" id="kenangan">
@@ -1174,7 +1133,59 @@ const orgData = {
     avatar: 'B' 
   },
 };
+// ====== DATA GALERI ======
+const galleryData = [
+  { id: '1NzlbRzy_uh0sog18hornSN7GOREq4NfU', title: 'Foto Kelulusan', sub: 'Tahun Ajaran 2025/2026', icon: '📸' },
+  { id: '1xCv3ZWf6klrYJlMP9pBjmiobUcoE91j3', title: 'Upacara & Wisuda', sub: 'Momen Kelulusan', icon: '🎓' },
+  { id: 'ID_FOTO_3', title: 'Praktik TITL', sub: 'Lab Instalasi', icon: '⚡' },
+  { id: 'ID_FOTO_4', title: 'Outing Class', sub: 'Perjalanan Bersama', icon: '🏕️' },
+  { id: 'ID_FOTO_5', title: 'Kebanggaan Kelas', sub: 'Prestasi & Lomba', icon: '🏆' },
+  { id: '1RaGjTegK92IBPMGn-cd8hRIVYT-5S8jg', title: 'Perayaan Kelulusan', sub: 'Kebersamaan', icon: '🎉' },
+  { id: '1StkT8jgIrtypHZul2dxubh6yNSinlVqJ', title: 'Malam Perpisahan', sub: 'Kenangan Terindah', icon: '🌙' },
+  { id: 'ID_FOTO_8', title: 'Momen Kebersamaan', sub: 'XII TITL 2026', icon: '✨' },
+  { id: 'ID_FOTO_9', title: 'Semangat Solidaritas', sub: 'Satu Rasa Sama Rata', icon: '🔥' },
+  { id: 'ID_FOTO_10', title: 'Kreativitas', sub: 'Karya Siswa', icon: '💡' },
+  { id: 'ID_FOTO_11', title: 'Praktek Bengkel', sub: 'Nguli Bareng', icon: '🛠️' },
+  { id: 'ID_FOTO_12', title: 'Bintang Kelas', sub: 'Momen Emas', icon: '⭐' },
+  { id: 'ID_FOTO_13', title: 'Kamera Kenangan', sub: 'Jepretan Dadakan', icon: '📷' },
+  { id: 'ID_FOTO_14', title: 'Olahraga Bareng', sub: 'Keringat Kawan', icon: '⚽' },
+  { id: 'ID_FOTO_15', title: 'Mabar Se-kelas', sub: 'Push Rank Bareng', icon: '🎮' },
+  { id: 'ID_FOTO_16', title: 'Keluarga Kedua', sub: 'Susah Senang Bersama', icon: '🤝' },
+  { id: 'ID_FOTO_17', title: 'Menuju Masa Depan', sub: 'Sukses Selalu!', icon: '🚀' }
+];
 
+// ====== RENDER GALERI ======
+function renderGallery() {
+  const container = document.getElementById('galleryGrid');
+  if(!container) return;
+  
+  container.innerHTML = '';
+  galleryData.forEach((item, i) => {
+    const itemEl = document.createElement('div');
+    // Pola grid: 1 lebar, sisanya standar
+    const gridClass = (i === 0 || i === 7 || i === 14) ? 'gc-1' : (i % 3 === 0) ? 'gc-2' : 'gc-3';
+    itemEl.className = `gallery-item ${gridClass} glass`;
+    
+    // Cek ID valid atau placeholder
+    const hasImage = item.id && !item.id.includes('ID_FOTO');
+    
+    // Kita balikin pakai format thumbnail bawaan Drive yang udah pasti jalan
+    const imgSrc = `https://drive.google.com/uc?export=view&id=${item.id}`;
+
+    itemEl.innerHTML = `
+      ${hasImage ? `<img src="${imgSrc}" alt="${item.title}">` : ''}
+      <div class="gallery-ph">${item.icon}</div>
+      <div class="gallery-caption">
+        ${item.title}
+        <div class="gallery-caption-sub">${item.sub}</div>
+      </div>
+    `;
+    container.appendChild(itemEl);
+  });
+}
+
+// Panggil fungsi render pas halaman diload
+renderGallery();
 
 // ====== RENDER STUDENTS ======
 function renderStudents(filter = 'all') {
